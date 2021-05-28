@@ -47,11 +47,3 @@ docker build -t vote .
 ```
 3. start them both up together using `docker- compose up`
 4. Now visit http://localhost:8080 in a web browser.
-
-## My Goal
-
-To be able to run this app in a docker environment and create a multi-user movie voting experience.
-
-### TODO's
-- [ ] Dockerize
-  - [ ] storage volume for hoodie data and/or couchdb data
