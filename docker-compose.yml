@@ -7,6 +7,8 @@ services:
     environment:
     - COUCHDB_USER=admin
     - COUCHDB_PASSWORD=password
+    volumes:
+      - /path/to/your/couchdb/data:/opt/couchdb/data
     healthcheck:
       test: ["CMD-SHELL", "curl --fail http://127.0.0.1:5984/ || exit 1"]
       interval: 10s
