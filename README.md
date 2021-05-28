@@ -1,9 +1,14 @@
 # Movie-voter
+![](screenshots/topbanner.png)
+A self-hosted app that lets you choose a username, suggest movies, and vote on movies suggested by others.
 
-An app that lets you add and vote on movies
+
+This app uses hoodie (http://hood.ie) as an open source alternative to firebase. Hoodie provides offline-first data storage and allows syncing to a database. 
 
 
-This app uses hoodie (http://hood.ie) as an open source alternative to firebase. Hoodie provides offline-first data storage and allows syncing to a database (not yet added). 
+Users can add movies by providing a title and a link to a movie database to allow people to find trailers or see a movies actors
+
+![](screenshots/addmovie.png)
 
 
 ## Running
