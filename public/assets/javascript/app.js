@@ -185,12 +185,12 @@ function movieDBSearch(term) {
 }
 
 function checkVoteStatus(item, username) {
-    if (username != null) {
+    if (!username) {
         return -1
-    } else if (!item.votes.includes(username)) {
-        return 0
-    } else {
+    } else if (item.votes.includes(username)) {
         return 1
+    } else {
+        return 0
     }
 }
 
