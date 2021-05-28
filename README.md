@@ -48,6 +48,5 @@ docker build -t vote .
 To be able to run this app in a docker environment and create a multi-user movie voting experience.
 
 ### TODO's
-- [ ] restrict votes to a certain number per user/device
 - [ ] Dockerize
   - [ ] storage volume for hoodie data and/or couchdb data
