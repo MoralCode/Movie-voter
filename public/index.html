@@ -8,29 +8,30 @@
 
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   </head>
   <body>
     <div class="jumbotron text-center">
       <h1 class="display-3">Vote for your Movie</h1>
-      <p class="lead">(Please Limit to 3 votes)</p>
     </div>
-
+    <div class="container" id="login-box">
+      <div id="login"></div>
+      <button id="login-submit" class="btn btn-primary"></button>
+    </div>
     <div class="container">
       <div class="row">
         <div class="card w-100">
           <div class="card-header bg-dark text-white">
-            <h1>Check Out Our Trains</h1>
+            <strong>Movie Wish List</strong>
           </div>
           <div class="card-body">
             <table class="table">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
-                  <th scope="col">Genre</th>
-                  <th scope="col">Selling Point</th>
                   <th scope="col">Votes</th>
-                  <th scope="col">Click Here to Vote</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody id="movies-here">  </tbody>
@@ -42,7 +43,7 @@
       <div class="row">
         <div class="card w-100">
           <div class="card-header bg-dark text-white">
-            <h1>Add a Movie</h1>
+            <strong>Add a Movie</strong>
           </div>
           <div class="card-body">
             <form>
@@ -51,13 +52,10 @@
                 <input type="text" id="name-input" class="form-control">
               </div>
               <div class="form-group">
-                <label>Genre</label>
-                <input type="text" id="genre-input" class="form-control">
+                <label>IMDB Link or Similar</label>
+                <input type="text" id="link-input" class="form-control">
               </div>
-              <div class="form-group">
-                <label>Selling Point</label>
-                <input type="text" id="sell-input" class="form-control">
-              </div>
+              <button id="online-search">Search in movie database</button>
               <button type="submit" class="btn btn-primary" id="submit"> Submit </button>
             </form>
           </div>
@@ -67,9 +65,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script> -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="/hoodie/client.js"></script>
     <script src="assets/javascript/app.js"></script>
   </body>
 </html>

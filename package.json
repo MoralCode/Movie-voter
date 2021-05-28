@@ -1,0 +1,16 @@
+{
+  "name": "Movie-voter",
+  "version": "1.0.0",
+  "description": "an app to help you vote on movies",
+  "main": "index.js",
+  "repository": "https://github.com/aehaq/Movie-voter",
+  "author": "Azfar E Haq",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "hoodie"
+  },
+  "dependencies": {
+    "hoodie": "^28.2.10"
+  }
+}
