@@ -3,12 +3,16 @@ let user = { username: 'foo', password: 'secret' }
 
 hoodie.account.signUp(user).catch((e) => {
     //do nothing. thisjust gaurantees the user exists 
+    console.log(e)
 })
 
 hoodie.account.get('session').then(function (session) {
     if (!session) {
         // user is signed out
         hoodie.account.signIn(user)
+        console.log("signing into hoodie as " + user.username)
+    } else {
+        console.log("signed into hoodie")
     }
 })
 
