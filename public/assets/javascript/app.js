@@ -137,24 +137,34 @@ hoodie.on("child_added", function(snapshot) {
 $("#submit").on("click", function(event) {
     event.preventDefault();
     
+    submit(false)
+    
+});
+
+function submit(vote_for) {
     // Here we grab the user data from the forms on page and stores them as variables.
     var name = $('#name-input').val();
     var link = $('#link-input').val();
 
     // This if statement ensures that none of the forms were left empty.        
-    if (name != "" && link != "") {
-        
+    if (name != "") {
+
         //If none of the forms were empty, the data is pushed to firebase.
-        hoodie.store.add({
-            name: name,
-            link: link,
-            votes: [],
-            id: Math.floor(Math.random()*100000)
-        });
-        
-        $('.form-control').val('');
+        addMovie(name, link, vote_for)
+
+        // $('.form-control').val('');
     };
-});
+}
+
+function addMovie(name, link, vote_for){
+    const username = getUniqueUsername()
+    hoodie.store.add({
+        name: name,
+        link: link,
+        votes: (vote_for && username)? [username]: [],
+        id: Math.floor(Math.random()*100000)
+    });
+}
 
 $(document).on("click", ".vote-button", function(event) { 
     event.preventDefault();
