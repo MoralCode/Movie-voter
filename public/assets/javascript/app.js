@@ -135,7 +135,20 @@ function render(moviesObject) {
     // We must empty the table out since we will work through the entire database again.
     document.getElementById("movies-here").innerHTML = ""
     moviesObject.sort(function (a, b) {
-        return b.votes.length-a.votes.length;
+        if (b.votes.length < a.votes.length) {
+            return -1
+        } else if (b.votes.length > a.votes.length) {
+            return 1
+        }
+
+        if (b.name.toLowerCase() > a.name.toLowerCase()) {
+            return -1
+        } else if (b.name.toLowerCase() < a.name.toLowerCase()) {
+            return 1
+        } else {
+            return 0
+        }
+
     });
 
     // We then iterate through the movies on the list and add each batch of information to the table
