@@ -141,6 +141,14 @@ $("#submit").on("click", function(event) {
     
 });
 
+$("#submit-vote").on("click", function (event) {
+    event.preventDefault();
+
+    submit(true)
+
+});
+
+
 function submit(vote_for) {
     // Here we grab the user data from the forms on page and stores them as variables.
     var name = $('#name-input').val();
