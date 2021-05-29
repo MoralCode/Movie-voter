@@ -1,6 +1,8 @@
 
 let user = { username: 'foo', password: 'secret' }
 
+const stats = {votesmade: 0, moviesposted:0}
+
 hoodie.account.signUp(user).catch((e) => {
     //do nothing. thisjust gaurantees the user exists 
     console.log(e)
@@ -126,6 +128,16 @@ function render(moviesObject) {
     }
 }
 
+
+function trackNewVote() {
+    stats.votesmade += 1
+    _paq.push(['setCustomVariable', 1, "Votes", stats.votesmade, "page"]);
+}
+
+function trackNewSubmission() {
+    stats.moviesposted += 1
+    _paq.push(['setCustomVariable', 2, "Suggestions", stats.moviesposted, "page"]);
+}
     
 // This function calls the list movie function when a change is made to the database.
 // When the page loads, this function is run once automatically, and filters through every single movie as though it was newly added. 
@@ -173,6 +185,7 @@ function addMovie(name, link, vote_for){
         votes: (vote_for && username)? [username]: [],
         id: Math.floor(Math.random()*100000)
     });
+    trackNewSubmission();
 }
 
 $(document).on("click", ".vote-button", function(event) { 
@@ -188,6 +201,7 @@ $(document).on("click", ".vote-button", function(event) {
             case 0:
                 item.votes.push(usn)
                 hoodie.store.update(item)
+                trackNewVote();
                 break;
             case 1:
                 console.log("you already voted for this")
