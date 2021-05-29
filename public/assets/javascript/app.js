@@ -29,10 +29,6 @@ hoodie.store.on('clear', function () {
     render([])
 })
 
-document.getElementById("online-search").onclick = () => {
-    movieDBSearch(document.getElementById("name-input").value)
-}
-
 function getUniqueUsername() {
     return localStorage.getItem('diy-username');
 }
@@ -197,10 +193,6 @@ $(document).on("click", ".vote-button", function(event) {
         
     })
 })
-
-function movieDBSearch(term) {
-    window.open("https://www.themoviedb.org/search?query=" + encodeURIComponent(term), '_blank');
-}
 
 function checkVoteStatus(item, username) {
     if (!username) {
