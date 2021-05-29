@@ -86,10 +86,15 @@ function listMovies(movieSnapshot) {
 
     // We place the necessary information into individual cells, and append each to the new row.
     var nameCell = $('<td scope="row">')
-    const linkelem = document.createElement("a")
-    linkelem.href = link
-    linkelem.innerText = name
-    nameCell.append(linkelem);
+
+    if (isValidUrl(link)) {    
+        const linkelem = document.createElement("a")
+        linkelem.href = link
+        linkelem.innerText = name
+        nameCell.append(linkelem);
+    } else {
+        nameCell.innerText = name
+    }
     newRow.append(nameCell);
     
     
@@ -203,6 +208,17 @@ function checkVoteStatus(item, username) {
         return 0
     }
 }
+
+const isValidUrl = (url) => {
+    try {
+        new URL(url);
+    } catch (e) {
+        console.error(e);
+        return false;
+    }
+    return true;
+};
+
 
 setInterval(() => {
     hoodie.store.sync()
