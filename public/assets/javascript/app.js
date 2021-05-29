@@ -74,6 +74,13 @@ function generateLoginBox() {
     }
 }
 
+
+function newTableData(){
+    const h = document.createElement("td")
+    h.scope = "row"
+    return h
+}
+
 // This function takes a movie listed in the database, and prints it's associated info onto the table.
 function listMovies(movieSnapshot) {
     var name = movieSnapshot.name;
@@ -84,40 +91,49 @@ function listMovies(movieSnapshot) {
     var disablevote = checkVoteStatus(movieSnapshot, getUniqueUsername()) != 0
 
     // We create a new row to append the information associated wth the current .
-    var newRow = $('<tr>')
+    var newRow = document.createElement("tr")
+
 
     // We place the necessary information into individual cells, and append each to the new row.
-    var nameCell = $('<td scope="row">')
+    var nameCell = newTableData()
 
     if (isValidUrl(link)) {    
         const linkelem = document.createElement("a")
         linkelem.href = link
         linkelem.innerText = name
-        nameCell.append(linkelem);
+        nameCell.appendChild(linkelem);
     } else {
-        nameCell.innerText = name
+        const spanelem = document.createElement("span")
+        spanelem.innerText = name
+        nameCell.appendChild(spanelem);
     }
-    newRow.append(nameCell);
+    newRow.appendChild(nameCell);
     
     
-    var votesCell = $('<td scope="row">')
-    votesCell.text(votes.length);
-    newRow.append(votesCell);
+    var votesCell = newTableData()
+    votesCell.innerText = votes.length;
+    newRow.appendChild(votesCell);
     
-    var castCell = $('<td scope="row">')
-    var button = $(`<button class="btn btn-success vote-button" data-key=${id} ${disablevote? "disabled": ""}>`)
-    button.text("VOTE!")
-    castCell.append(button)
-    newRow.append(castCell);
+    var castCell = newTableData()
+    var button = document.createElement("button")
+    button.classList.add("btn", "btn-success", "vote-button")
+    button.dataset.key = id
+    if (disablevote) {
+        button.disabled = true
+    }
+    button.innerText = "VOTE!"
+    button.onclick = onvote
+    castCell.appendChild(button)
+    newRow.appendChild(castCell);
 
     // We append the new row to the table.   
-    $('#movies-here').append(newRow);
+    document.getElementById("movies-here").appendChild(newRow);
 };
 
 // This function is used to render the list of movies without making changes to firebase
 function render(moviesObject) {
     // We must empty the table out since we will work through the entire database again.
-    $('#movies-here').empty();
+    document.getElementById("movies-here").innerHTML = ""
     moviesObject.sort(function (a, b) {
         return b.votes.length-a.votes.length;
     });
@@ -147,25 +163,25 @@ hoodie.on("child_added", function(snapshot) {
 
 // This function is run when users want to add movie information to the list.
 // It pushes the movie into the database, triggering the child added function which sprints them on the page.
-$("#submit").on("click", function(event) {
+document.getElementById("submit").onclick = function(event) {
     event.preventDefault();
     
     submit(false)
     
-});
+}
 
-$("#submit-vote").on("click", function (event) {
+document.getElementById("submit-vote").onclick = function (event) {
     event.preventDefault();
 
     submit(true)
 
-});
+};
 
 
 function submit(vote_for) {
     // Here we grab the user data from the forms on page and stores them as variables.
-    var name = $('#name-input').val();
-    var link = $('#link-input').val();
+    var name = document.getElementById("name-input").value;
+    var link = document.getElementById("link-input").value;
 
     // This if statement ensures that none of the forms were left empty.        
     if (name != "") {
@@ -188,10 +204,10 @@ function addMovie(name, link, vote_for){
     trackNewSubmission();
 }
 
-$(document).on("click", ".vote-button", function(event) { 
+function onvote(event) {
     event.preventDefault();
 
-    var key = $(this).data("key")
+    var key = event.target.getAttribute("data-key")
     const usn = getUniqueUsername()
     hoodie.store.find(key).then((item)=> {
         switch (checkVoteStatus(item, usn)) {
@@ -211,7 +227,7 @@ $(document).on("click", ".vote-button", function(event) {
         }
         
     })
-})
+}
 
 function checkVoteStatus(item, username) {
     if (!username) {
