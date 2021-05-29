@@ -212,6 +212,7 @@ function addMovie(name, link, vote_for){
     hoodie.store.add({
         name: name,
         link: link,
+        author: username,
         votes: (vote_for && username)? [username]: [],
         id: Math.floor(Math.random()*100000)
     });
