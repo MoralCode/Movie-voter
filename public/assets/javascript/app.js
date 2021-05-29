@@ -189,7 +189,8 @@ function submit(vote_for) {
         //If none of the forms were empty, the data is pushed to firebase.
         addMovie(name, link, vote_for)
 
-        // $('.form-control').val('');
+        document.getElementById("name-input").value = "";
+        document.getElementById("link-input").value = "";
     };
 }
 
