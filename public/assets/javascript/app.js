@@ -18,9 +18,9 @@ hoodie.account.get('session').then(function (session) {
     }
 })
 
-function loadAndRenderItems() {
+function loadAndRenderItems(sortFunc=sortNewlyNominated) {
     hoodie.store.findAll().then((items) => {
-        items.sort(sortNewlyNominated);
+        items.sort(sortFunc);
         render(items)
     })
 }
@@ -207,6 +207,22 @@ document.getElementById("submit").onclick = function(event) {
     
     submit(false)
     
+}
+
+
+document.getElementById("sort-votes").onclick = function (event) {
+    event.preventDefault();
+    loadAndRenderItems(sortVotesAlpha)
+}
+ 
+document.getElementById("sort-nominated").onclick = function (event) {
+    event.preventDefault();
+    loadAndRenderItems(sortNewlyNominated)
+}
+
+document.getElementById("sort-alpha").onclick = function (event) {
+    event.preventDefault();
+    loadAndRenderItems(sortAlpha)
 }
 
 document.getElementById("submit-vote").onclick = function (event) {
