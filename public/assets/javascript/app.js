@@ -20,7 +20,7 @@ hoodie.account.get('session').then(function (session) {
 
 function loadAndRenderItems() {
     hoodie.store.findAll().then((items) => {
-        items.sort(sortVotesAlpha);
+        items.sort(sortNewlyNominated);
         render(items)
     })
 }
@@ -174,6 +174,15 @@ function sortAlpha(a, b) {
     }
 }
 
+function sortNewlyNominated(a, b) {
+    if (new Date(b.hoodie.createdAt) < new Date(a.hoodie.createdAt)) {
+        return -1
+    } else if (new Date(b.hoodie.createdAt) > new Date(a.hoodie.createdAt)) {
+        return 1
+    } else {
+        return 0
+    }
+}
 
 function trackNewVote() {
     stats.votesmade += 1
