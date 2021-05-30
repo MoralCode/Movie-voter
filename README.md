@@ -13,14 +13,28 @@ Users can add movies by providing a title and a link to a movie database to allo
 
 ## Running
 
-### Regular Method
+### Development
 
 #### Database
-The database is CouchDB. I honestly havent tried setting it up standalone and just use docker. The slightly custom image in this repo automatically configures the database as standalone (not a cluster) since the latest version doesnt do this automatically.
+
+The database is not required to run the app unless you require data to be synced between different users/browsers.
+
+To run the database for development purposes, build the database image as seen under the [production](#Production) heading. Then comment out the `web` half of the `docker-compose.yml` file and run `docker-compose up -d` to start the database in the background.
+
 
 #### Frontend
 
-Once the database is running you may need to set some variables (either in the environment or in `package.json`) as outlined [here](http://docs.hood.ie/en/latest/guides/configuration.html) to tell the frontend about the database
+You may need to set some variables in `package.json` as outlined [here](http://docs.hood.ie/en/latest/guides/configuration.html) to tell the frontend about the database.
+
+Heres a sample configuration to add into `package.json`:
+
+```
+  "hoodie": {
+    "dbUrl": "localhost:5984",
+    "dbUrlUsername": "admin",
+    "dbUrlPassword": "password"
+  }
+```
 
 Then open a terminal in the project directory folder and do either `npm install` or `yarn install` depending on your preference. then run `nom start` or `yarn start`. This will start a development server for the app frontend
 
@@ -32,7 +46,7 @@ Stop server with control + c
 
 Now visit http://localhost:8080 in a web browser.
 
-### Docker
+### Production (Docker)
 
 1. Build the database image
 ```bash
@@ -45,5 +59,6 @@ cd ../
 ```bash
 docker build -t vote .
 ```
-3. start them both up together using `docker- compose up`
+3. start them both up together using `docker-compose up`
 4. Now visit http://localhost:8080 in a web browser.
+5. optionally, transfer the images to another machine with [`docker save`](https://docs.docker.com/engine/reference/commandline/save/)
