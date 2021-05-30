@@ -146,12 +146,25 @@ function render(moviesObject) {
 
 
 function sortVotesAlpha(a, b) {
+    votesort = sortVotes(a,b)
+    if (votesort != 0) {
+        return votesort
+    } else {
+        return sortAlpha(a,b)
+    }
+}
+
+function sortVotes(a, b) {
     if (b.votes.length < a.votes.length) {
         return -1
     } else if (b.votes.length > a.votes.length) {
         return 1
+    } else {
+        return 0
     }
+}
 
+function sortAlpha(a, b) {
     if (b.name.toLowerCase() > a.name.toLowerCase()) {
         return -1
     } else if (b.name.toLowerCase() < a.name.toLowerCase()) {
@@ -159,7 +172,6 @@ function sortVotesAlpha(a, b) {
     } else {
         return 0
     }
-
 }
 
 
